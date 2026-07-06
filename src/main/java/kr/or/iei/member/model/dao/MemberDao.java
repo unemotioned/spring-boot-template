@@ -1,12 +1,13 @@
 package kr.or.iei.member.model.dao;
 
-import kr.or.iei.member.model.vo.Member;
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
+import kr.or.iei.member.model.vo.Member;
 
 // Mapper
 @Mapper
 public interface MemberDao { // interface 로 생성
-    public ArrayList<Member> getList();
+	public ArrayList<Member> getList();
 }
