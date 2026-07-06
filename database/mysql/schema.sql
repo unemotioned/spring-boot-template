@@ -1,4 +1,4 @@
--- user: boot_test
+-- user: spring_boot_template
 -- pw: 1234
 
 use boot_test;
