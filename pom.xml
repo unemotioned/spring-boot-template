@@ -8,11 +8,10 @@
         <version>3.4.13</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>sample_project</artifactId>
+    <groupId>kr.or.iei</groupId>
+    <artifactId>spring_boot_template</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sample_project</name>
-    <description>Demo project for Spring Boot</description>
+    <name>spring_boot_template</name>
     <url/>
     <licenses>
         <license/>

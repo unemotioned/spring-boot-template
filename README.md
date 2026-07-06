@@ -1,6 +1,6 @@
-# Spring boot
+# Spring Boot Template
 
-## Spring boot framework 기본 개념
+## Spring Boot Framework 기본 개념
 
 스프링 부트 정의 및 특징
 
