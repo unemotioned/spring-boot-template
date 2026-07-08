@@ -3,13 +3,14 @@
 <mapper namespace="kr.or.iei.member.model.dao.MemberDao"> <!-- @Mapper 어노테이션 작성된 Dao 파일 경로 -->
 
     <!--
-     id : Dao 에 작성된 메소드명
-     parameterType : Dao 에 작성된 메소드 매개변수
-     resultType : Dao 에 작성된 메소드 반환형 VO 별칭은 application.properties 에 설정되어 있음.
+     id : Dao에 작성된 메소드명
+     parameterType : Dao에 작성된 메소드 매개변수
+     resultType : Dao에 작성된 메소드 반환형 VO 별칭은 application.properties에 설정되어 있음.
     -->
     <select id="getList" resultType="Member">
-        select member_id as memberId,
-               member_pw as memberPw
+        select
+			member_id as memberId,
+			member_pw as memberPw
         from tbl_member
     </select>
 

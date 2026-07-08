@@ -2,7 +2,6 @@ package kr.or.iei.member.controller;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,8 +10,16 @@ import kr.or.iei.member.model.vo.Member;
 
 @Controller
 public class MemberController {
-	@Autowired
-	private MemberService service;
+	private final MemberService service;
+
+	public MemberController(MemberService service) {
+		this.service = service;
+	}
+
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
 
 	@GetMapping("/getList")
 	public void getList() {

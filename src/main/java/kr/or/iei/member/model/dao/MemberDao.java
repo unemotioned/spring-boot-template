@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.or.iei.member.model.vo.Member;
 
-// Mapper
+// create as interface
 @Mapper
-public interface MemberDao { // interface 로 생성
-	public ArrayList<Member> getList();
+public interface MemberDao {
+	ArrayList<Member> getList();
 }
