@@ -1,10 +1,13 @@
+.idea/
+.vscode/
+
 .mvn/
+.factorypath
+target/
+
 .settings/
 .classpath
-.factorypath
 .project
-bin/
-target/
 
 .DS_Store
 .localized
