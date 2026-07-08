@@ -199,15 +199,7 @@ Create `src/main/webapp/WEB-INF/views/index.jsp`
 
 Right-click project and select **Run As**.
 
-1. Maven Install
-   1. clean
-   2. validate
-   3. compile
-   4. test
-   5. package
-   6. verify
-   7. install
-   8. deploy
+1. `Maven Install` (which is same as **clean, validate, compiler, test, package, verify, install, deploy**)
    - This creates `target/<package-name>.jar`
 2. Spring Boot App (**Shortcut**: `Alt + Shift + X, B`)
 
