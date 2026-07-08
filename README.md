@@ -1,200 +1,245 @@
 # Spring Boot Template
 
-## Spring Boot Framework 기본 개념
+`Spring Boot` is an extension of the `Spring` Framework that simplifies application development by reducing configuration and enabling developers to build production-ready applications quickly and efficiently.
 
-스프링 부트 정의 및 특징
+## Why Spring Boot
 
-- 정의 : 스프링 프레임워크를 기반으로 애플리케이션 개발을 간소화하고, 빠르게 만들 수 있도록 도와주는 개발 도구
-- 대표 특징
-  1. 자동 설정 : 대부분의 설정 작업을 자동으로 설치해줌
-  2. 내장 서버 : Tomcat을 내장하고 있어서 별도의 WAS 설치 필요 없음
-  3. 편리한 의존성 추가 : 자주 사용되는 라이브러리와 의존성을 묶어서 제공 (pom.xml에 수동 추가했던거 프로젝트 생성할 때 체크박스만으로 추가 가능)
-     - 레거시 프로젝트에 비해서 설정하기가 매우 편리하다
+- **Auto Configuration**
+  - Automatically configures the application based on the project's dependencies.
 
----
+- **Embedded Server**
+  - Comes with an embedded server such as Apache Tomcat, eliminating the need to install a separate application server.
 
-## 기본 준비
+- **Easy Dependency Management**
+  - Provides starters such as `spring-boot-starter-web` and `spring-boot-starter-data-jpa`, which bundle commonly used libraries.
+  - Adding dependencies when creating a new project is simple.
 
-[Spring 공식 사이트](https://spring.io)
-[STS 다운로드](https://spring.io/tools) (Spring Tools 4 for Eclipse)
-[Spring Framework 버전별 릴리즈 노트](https://spring.io/projects/spring-boot#learn)
-GA : 배포된 안정된 버전 (우리가 사용할것)
-SNAPSHOT : 개발 진행 중
+- **Rapid Development**
+  - Minimizes boilerplate code and configuration.
 
-[Maven Zip](https://dlcdn.apache.org/maven/)
-[3.9.1](https://archive.apache.org/dist/maven/maven-3/3.9.1/binaries/)
-[Maven 라이브러리 Dependency 검색](https://mvnrepository.com/)
-[Java 17 (Window)](https://corretto.aws/downloads/latest/amazon-corretto-17-x64-windows-jdk.msi)
+## Table of Contents
 
-- Spring Boot Framework 3.4.1 요구사항
-  - JDK 17 이상
-  - Maven 3.6.3 이상
-
-1. Java amazon corretto 17 설치
-2. Maven 설치 및 설정 (기존 레거시랑 동일하게, repository 폴더 생성하고 settings.xml에 `<localRepository>` 설정 동일하게)
-3. STS 다운로드 사이트 들어가서 최신 버전 다운로드 및 압축 해제
-4. workspace 생성 및 STS 실행
-5. workspace 설정
-6. 프로젝트 설정
+- [Prerequisite](#prerequisite)
+  - [Apache Maven Preparation](#apache-maven-preparation)
+- [STS Settings](#sts-settings)
+  - [Extension](#extension)
+- [Create New Project](#create-new-project)
+- [Run Project](#run-project)
+- [Open with IntelliJ](#open-with-intellij)
+- [Troubleshooting](#troubleshooting)
+  - [Java Version Difference in IntelliJ Terminal](#java-version-difference-in-intellij-terminal)
 
 ---
 
-## Workspace settings
+## Prerequisite
 
-### Menubar / Window / Preferences 설정
+Download and install following packages:
 
-1. Compiler 17
-2. Installed JREs JDK 17 (경로: C:\Program Files\Amazon Corretto\jdk17.0.12_7)
-3. 인코딩 UTF-8 설정 (기본으로 되어 있음)
-   - General &rarr;
-     - Editors &rarr; Text Editors &rarr; Spelling
-     - Workspace
-   - JSON &rarr; JSON Files,
-   - Web &rarr;
-     - CSS Files
-     - HTML Files
-     - JSP Files
-   - XML &rarr; XML Files
-4. Window &rarr; Show View에서 필요 탭 추가 (Package Explorer, Problems, Console, Search, OutLine)
-5. Menubar &rarr; Help &rarr; Eclipse Market Place
-   - `Eclipse Enterprise Java and Web Developer Tools 3.36` 설치
+- [Amazon Corretto 21](https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html)
+- [Apache Maven 3](https://maven.apache.org/download.cgi)(Download **Binary zip archive**)
+- [Spring Tools 5](https://spring.io/tools#eclipse)
 
-   - JSP 생성 및 아래 Mybatis 관련 설정을 위한 Kit 다운로드 (부트에서는 JSP가 기본적으로 제공되지 않음)
+### Apache Maven Preparation
 
-   - 한 번 Install 하면, workspace별 설치 없이 사용 가능
+Follow instruction from [unemotioned/spring-practice](https://github.com/unemotioned/spring-practice#apache-maven-1)
+to set the directory where the dependencies will be installed
 
-   - STS 재시작
+#### Environment Variable
 
-6. Window &rarr; Perspective &rarr; Customize Perspective &rarr; Shortcuts &rarr; Web, XML에서 필요한 파일 체크
-   - JSP, CSS, XML
-7. Maven 설정 (기존 레거시랑 동일하게, Window &rarr; Maven &rarr; User Settings 설정)
-8. Mybatis 관련 설정
-   - Window &rarr; Preferences &rarr; XML &rarr; XML Catalog &rarr; User Specified Entries에 Config, Mapper 설정
-   - Config 파일 내부 설정(alias, jdbc type, mapper location)은 application.properties에 작성해도 무방하므로, Mapper 설정만 진행해도 됩니다 샘플
-     프로젝트 참고
-   - Window &rarr; Preferences &rarr; XML (Wild Web Developer) &rarr; Download external resources like referenced DTD,
-     XSD 체크
+- To use `mvn` command in terminal you must set the environment variable.
+
+1. 윈도우 검색에서 `시스템 환경 변수 편집`
+2. `환경 변수(N)...`
+3. 시스템 변수(S) > `새로 만들기(W)...`
+   - **변수 이름**: `MAVEN_HOME`
+   - **변수 값**: **디렉터리 찾아보기(D)...** 압축 풀려있는 `apache-maven-3.x.x` 폴더 선택
+4. `Path`를 **편집(I)...**
+5. **새로 만들기(N)** 클릭 후 `%MAVEN_HOME%\bin`으로 설정
+
+Open terminal and test it:
+
+```sh
+mvn --version
+```
 
 ---
 
-## Project 설정
+## STS Settings
 
-1. 새 프로젝트 생성 `Spring Starter Project` 클릭
-2. 프로젝트 생성 기본 정보 입력
-   - Name : 프로젝트 이름
-   - Type : 빌드 도구 (Maven으로 설정)
-   - Packaging : Jar
-   - Java Version : 17
-   - Language : Java
-   - Package : kr.or.iei
+Open `Menubar > Window > Preferences`
 
-3. Dependencies 검색 및 추가 (상단 Spring Framework 3.4.1 선택 &rarr; 새 버전 출시되면 자동 선택되니 참고)
-   - 기존 레거시에서, pom.xml에 수동으로 추가했던 의존성들중에 자주 사용되는 놈들을 묶어서 편리하게 추가할 수 있도록 제공
+### JDK & Compiler
 
-   - Spring Web (기본 Servlet 기능, 내장 Tomcat)
-   - Spring Boot DevTools (소스 수정 시, 자동 재시작 등 개발 편의성)
-   - Lombok
-     - 체크해도 어노테이션은 작성 가능하나, 클래스 파일에 getter 및 setter 생성 또는 사용이 안되는 경우 아래대로 진행
-       1. 프로젝트 - Maven Dependencies 열어 lombok.jar 파일 찾기
-       2. lombok.jar 우클릭 - Run As - Java Application
-       3. lombok 설치 화면 나오면, Specify location 클릭하여, STS 다운로드 경로에 존재하는 STS.ini 파일 경로 체크 및 Install
-       4. STS Restart 및 프로젝트 Clean 후, 재실행
-   - Oracle Driver
-   - Mybatis Framework
+- Java > **Installed JREs**: `jdk21`
+- Java > **Compiler compliance level**: `21`
 
-4. src/main/resources/application.properties에 서버 포트 번호, DB 접속 정보, Mybatis, JSP 설정
-   - 아래 "#"은 주석이고, 이 파일에는 한글 작성 X
-   - 아래 mybatis 설정은 기존처럼 mybatis-config.xml 생성하고 작성해도 되지만, 이 파일에 모아 작성해야 관리적인 측면으로 편함
-   - mybatis-config.xml 생성했으면 아래 mybatis.config-location 속성 추가
+### MyBatis
 
-- `application.properties` 파일 내용
+Follow instruction from [unemotioned/mybatis-practice](https://github.com/unemotioned/mybatis-practice#mybatis-settings).
+
+### Maven
+
+- Maven > **User Settings**
+  - **User Setting**: `C:/apache-maven-3.x.x/conf/settings.xml`
+
+### Extension
+
+Menu bar > Help > **Eclipse Market Place**
+
+Search `Eclipse Enterprise Java and Web Developer Tools 3.xx`
+
+- Installs Kit for creating **JSP** and setting up **MyBatis**
+
+---
+
+## Create New Project
+
+Right click on Package Explorer > New > `Spring Starter Project`
+
+The prompt is for setting the project information and dependencies to go inside the `pom.xml`
+
+- **Name**: Name of the project
+- **Type**: `Maven`
+- **Packaging**: `Jar`
+- **Language**: `Java`
+- **Group**: `kr.or.iei`
+- **Artifact**: Same as the project name
+- **Package**: `kr.or.iei.spring-boot-template`
+
+Next
+
+**Spring Boot Version**: Latest stable version is automatically selected (This project is using **3.5.16**)
+
+Search following dependencies:
+
+- Spring Web
+- Spring Boot DevTools
+- Lombok
+  - If it does not work then from `Maven Dependencies` and **Run As** > `Java Application`
+- Oracle Driver
+- MyBatis Framework
+
+### JSP
+
+Add the following dependencies from [Maven Repository](https://mvnrepository.com/) to enable `JSP` support:
+
+- Jakarta Standard Tag Library Implementation
+- Jakarta Standard Tag Library API
+- Jakarta Servlet API
+- Tomcat Embed Jasper
+
+```xml
+<!-- Source: https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
+<dependency>
+    <groupId>org.glassfish.web</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+    <version>3.0.1</version>
+    <scope>runtime</scope>
+</dependency>
+
+<!-- Source: https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+<dependency>
+    <groupId>jakarta.servlet.jsp.jstl</groupId>
+    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+    <version>3.1.0-M1</version>
+    <scope>compile</scope>
+</dependency>
+
+<!-- Source: https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+<dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>6.2.0-M2</version>
+    <scope>provided</scope>
+</dependency>
+
+<!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+    <version>11.0.23</version>
+    <scope>compile</scope>
+</dependency>
+```
+
+### application.properties
+
+This is where you set DB connection, JSP, MyBatis config etc.
+MyBatis can be configured with `mybatis-config.xml` as usual but keeping them in one
+place is easier to manage.
 
 ```properties
-# server port Number
 server.port=80
 
-# jsp view location setting
+# JSP directory
 spring.mvc.view.prefix=/WEB-INF/views/
 spring.mvc.view.suffix=.jsp
 
-# mybatis setting
-mybatis.mapper-locations=classpath:/mapper/_.xml
-mybatis.type-aliases-package=kr.or.iei._.model.vo
+# MyBatis config
+mybatis.mapper-locations=classpath:/mapper/*.xml
+mybatis.type-aliases-package=kr.or.iei.*.model.vo
 mybatis.configuration.jdbc-type-for-null=NULL
 
-# oracle setting
+# DB connection
 spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
 spring.datasource.url=jdbc:oracle:thin:@127.0.0.1:1521:xe
-spring.datasource.username=boot_test
+spring.datasource.username=spring_boot_template
 spring.datasource.password=1234
 
-# file upload
+# File upload and download
 spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=50MB
 ```
 
-5. JSP 사용을 위한 의존성 pom.xml에 추가
+---
 
-- Boot 3.0 버젼 이상으로 작성됬기때문에 낮은 버젼을 쓰면 경로가 다를 수 있음
+## Run Project
 
-```xml
-<dependency>
-  <groupId>org.glassfish.web</groupId>
-  <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-</dependency>
+Create `src/main/webapp/WEB-INF/views/index.jsp`
 
-<dependency>
-  <groupId>jakarta.servlet.jsp.jstl</groupId>
-  <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-</dependency>
+Right-click project and select **Run As**.
 
-<dependency>
-  <groupId>jakarta.servlet</groupId>
-  <artifactId>jakarta.servlet-api</artifactId>
-</dependency>
-
-<dependency>
-  <groupId>org.apache.tomcat.embed</groupId>
-  <artifactId>tomcat-embed-jasper</artifactId>
-</dependency>
-```
-
-6. src/main 폴더 하위에, 폴더 및 JSP 파일 추가
-
-- src/main/webapp/WEB-INF/views 폴더 추가
-- views 폴더 하위에 index.jsp 추가
-
-7. 프로젝트 우클릭 &rarr; Run As &rarr; Spring Boot App 클릭
-
-- 단축키: Alt + Shift + X, B
+1. Maven Install
+   1. clean
+   2. validate
+   3. compile
+   4. test
+   5. package
+   6. verify
+   7. install
+   8. deploy
+   - This creates `target/<package-name>.jar`
+2. Spring Boot App (**Shortcut**: `Alt + Shift + X, B`)
 
 ---
 
-## 면접 Tip
+## Open with IntelliJ
 
-- 기업에 대한, 다양한 방면의 최소한의 기준 정할 것 (연봉, 복지, 연차 및 휴가제도, 상여 및 성과급, 지역, 교통편, 유연근무제 등)
-- 수료 후에 별도의 프로젝트 제작이나 계획이 없다면, 취업까지 기간을 최대 3개월 이내로 설정할 것
-  (늘어날수록 열정은 사라지고 마음만 조급해져서 위에 작성한 최소한의 기준이 점점 내려가요)
-- 이미 자기소개서 기본 틀은 제작되었으니, 기업별 지원 시 최소한 연혁, 주 사업, 사업 목표, 인재상 등은 변경 적용하여 지원할 것
-  기업명만 OO 뚫어놓고 바꿔가면서 지원하지 마세요 (+@ 관련 뉴스까지도 찾아보면 면접에 활용 가능)
-- 면접은 되는 대로 모두 참석하여, 스킬업 및 긴장감 낮추기 (그래야 기회가 왔을 때, 준비한 역량에 70% 이상은 나와요)
-- 어차피 면접 떨어지면 동네 아저씨 아줌마다라는 생각으로 들어가야 긴장이 덜 됩니다
-- 면접관은 기본적인 개발 역량뿐만 아니라, 조직에 잘 융화될 수 있는지도 중요하게 생각하니 잘 웃고 대화하듯이
+### Project Structure
 
-  [잡아바](https://www.jobaba.net/introduction/mainList.do)(무료 자소서 첨삭 사이트)
-  [kocw](http://www.kocw.net/)(분야별 다양한 무료 강의 사이트)
+Menu bar > File > Project Structure (shortcut: `Ctrl + Alt + Shift + S`)
 
-- 구직 사이트
-  - 국내 : 사람인, 잡코리아, 원티드, 로켓펀치, 슈퍼루키, 자소설닷컴
-  - 해외 : LinkedIn, worldjob, peoplenjob (외국계)
+Project > **SDK**: `corretto-21`
 
-- 기업 분석
-  - [catch](https://www.catch.co.kr/)
-  - [fss](https://dart.fss.or.kr/)
-  - [wanted](https://insight.wanted.co.kr/)
+### Maven Settings
 
-- Boot 프레임워크 3.4.1 기준으로 작성했으니, 상위 버전 생성 시 각 프레임워크 및 라이브러리와의 호환성 체크 필요
+Settings > Build, Execution, Deployment > Build Tools > **Maven**
+
+**User settings file** check Override and select the `C:/apache-maven-3.x.x/conf/settings.xml`
+
+### Run Configurations
+
+1. Install `Spring Boot` plugin
+2. Menu bar > **Edit Configuration...**
+3. **Add New...** > `Spring Boot`
+4. Enter the **Main Class** path starting from `kr.or.iei`
+5. Now you can run it (shortcut: `Shift + F10`)
 
 ---
 
-### Happy Hacking 🎉
+## Troubleshooting
+
+### Java Version Difference in IntelliJ Terminal
+
+From `Edit system environment variables` edit `Path` and move currently used
+Java version above other JDKs right under the `%JAVA_HOME%`.
