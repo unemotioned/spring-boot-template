@@ -36,7 +36,7 @@
 Download and install following packages:
 
 - [Amazon Corretto 21](https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html)
-- [Apache Maven 3](https://maven.apache.org/download.cgi)(Download **Binary zip archive**)
+- [Apache Maven 3](https://maven.apache.org/download.cgi) (Download **Binary zip archive**)
 - [Spring Tools 5](https://spring.io/tools#eclipse)
 
 ### Apache Maven Preparation
@@ -46,7 +46,7 @@ to set the directory where the dependencies will be installed
 
 #### Environment Variable
 
-- To use `mvn` command in terminal you must set the environment variable.
+To use `mvn` command in terminal you must set the environment variable.
 
 1. 윈도우 검색에서 `시스템 환경 변수 편집`
 2. `환경 변수(N)...`
@@ -61,6 +61,9 @@ Open terminal and test it:
 ```sh
 mvn --version
 ```
+
+> [!NOTE]
+> **Environment variable** setup is not necessary if you only run projects from **IDEs**.
 
 ---
 

@@ -13,5 +13,5 @@ CREATE USER SPRING_BOOT_TEMPLATE IDENTIFIED BY 1234;
 GRANT CONNECT, RESOURCE TO SPRING_BOOT_TEMPLATE;
 ```
 
-> NOTE
-> Execute commands one after another.
+> [!IMPORTANT]
+> Enter and execute commands one by one.
